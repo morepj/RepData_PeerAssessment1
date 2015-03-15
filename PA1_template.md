@@ -74,6 +74,21 @@ Id **835** is the 5-minute interval id, on average across all the days in the da
 
 ## Imputing missing values
 
+```r
+missing.values <- sum(is.na(dat))
+```
+There are **2304** missing values in the dataset.
 
+###Strategy to fill missing values
+We will fill the missing values with the mean of number of steps taken on that day.
+
+
+```r
+dat1 <- read.csv("activity.csv", header=TRUE)
+na.index <- which(is.na(dat1$steps))
+avg.per.day <- tapply(dat$steps, dat$date, mean, na.rm = TRUE)
+dat1$steps[na.index] <- avg.per.day[dat1$date[na.index]]
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
+

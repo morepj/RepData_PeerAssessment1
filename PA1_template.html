@@ -104,6 +104,16 @@ plot(x = avg.steps$interval, y = avg.steps$steps, type = &quot;l&quot;, xlab = &
 </div>
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
+<pre class="r"><code>missing.values &lt;- sum(is.na(dat))</code></pre>
+<p>There are <strong>2304</strong> missing values in the dataset.</p>
+<div id="strategy-to-fill-missing-values" class="section level3">
+<h3>Strategy to fill missing values</h3>
+<p>We will fill the missing values with the mean of number of steps taken on that day.</p>
+<pre class="r"><code>dat1 &lt;- read.csv(&quot;activity.csv&quot;, header=TRUE)
+na.index &lt;- which(is.na(dat1$steps))
+avg.per.day &lt;- tapply(dat$steps, dat$date, mean, na.rm = TRUE)
+dat1$steps[na.index] &lt;- avg.per.day[dat1$date[na.index]]</code></pre>
+</div>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
